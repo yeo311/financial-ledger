@@ -1,15 +1,16 @@
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
+import Button from './atom/Button';
 
 export default function MonthSelector() {
   return (
-    <section>
-      <button type="button">
+    <div className="flex">
+      <Button>
         <BsFillCaretLeftFill />
-      </button>
-      <button type="button">9월</button>
-      <button type="button">
+      </Button>
+      <Button className="text-lg">9월</Button>
+      <Button>
         <BsFillCaretRightFill />
-      </button>
-    </section>
+      </Button>
+    </div>
   );
 }
