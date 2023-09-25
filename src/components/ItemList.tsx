@@ -1,22 +1,25 @@
 'use client';
 
-import API from '@/api/api';
+import client from '@/libs/axios/client';
 import { useQuery } from '@tanstack/react-query';
+import type { Item } from '@/libs/postgres';
 
 export default function ItemList() {
   const { data } = useQuery({
     queryKey: ['items'],
-    queryFn: API.getItems,
+    queryFn: async () => {
+      const { data } = await client.post<{ data: Item[] }>('/api/item');
+      return data.data;
+    },
   });
 
   return (
     <div className="flex">
       <div>
-        <h2>ssr</h2>
         <ul>
           {data?.map((item) => (
             <li key={item.id}>
-              {item.title} {item.date} {item.amount}
+              {item.title} {item.formatted_day} {item.amount}
             </li>
           ))}
         </ul>
