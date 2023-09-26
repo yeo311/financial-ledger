@@ -24,8 +24,6 @@ main {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  max-width: 500px;
-  margin: auto;
   height: 100vh;
   padding: 20px;
 }

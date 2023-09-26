@@ -6,10 +6,14 @@ import { getItems } from '@/libs/postgres';
 import getQueryClient from '@/libs/query/getQueryClient';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
 
-export default async function Home() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
+interface Props {
+  params: {
+    year: string;
+    month: string;
+  };
+}
+
+export default async function ListPage({ params: { year, month } }: Props) {
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(['items', year, month], async () =>
     getItems(year, month),
