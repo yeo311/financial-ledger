@@ -1,7 +1,7 @@
 import ItemList from '@/components/ItemList';
 import MonthSelector from '@/components/MonthSelector';
 import TotalInformation from '@/components/TotalInformation';
-import AddItemButton from '@/components/addItemButton';
+import AddItemButton from '@/components/AddItemButton';
 import { getItems } from '@/libs/postgres';
 import getQueryClient from '@/libs/query/getQueryClient';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
