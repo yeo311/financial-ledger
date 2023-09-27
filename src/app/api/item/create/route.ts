@@ -1,15 +1,12 @@
-import { createFinancialLedgerItem } from '@/libs/notion/createFinancialLedgerItem';
+import insertItems from '@/libs/postgres/insertItems';
+import { NextResponse } from 'next/server';
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
-    await createFinancialLedgerItem({
-      title: '생성테스트',
-      date: '2020-09-18',
-      category: '951c4216-7683-41ae-9c31-5b2575ca49df',
-      amount: 2000,
-      isIncome: true,
-    });
-    return new Response(null, { status: 200 });
+    const { title, amount, category, day, isIncome } = await request.json();
+    await insertItems(title, amount, day, category, isIncome);
+
+    return NextResponse.json({ success: true });
   } catch (err) {
     return new Response(null, { status: 500 });
   }

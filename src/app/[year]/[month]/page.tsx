@@ -1,10 +1,10 @@
 import ItemList from '@/components/ItemList';
 import MonthSelector from '@/components/MonthSelector';
 import TotalInformation from '@/components/TotalInformation';
-import AddItemButton from '@/components/AddItemButton';
 import { getItems } from '@/libs/postgres';
 import getQueryClient from '@/libs/query/getQueryClient';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
+import Bottoms from '@/components/Bottoms';
 
 interface Props {
   params: {
@@ -22,18 +22,20 @@ export default async function ListPage({ params: { year, month } }: Props) {
 
   return (
     <>
-      <Hydrate state={dehydrateState}>
-        <section className="flex mb-3">
-          <MonthSelector year={year} month={month} />
-        </section>
-        <section className="flex">
-          <TotalInformation />
-        </section>
-        <section className="flex">
-          <ItemList year={year} month={month} />
-        </section>
-      </Hydrate>
-      <AddItemButton />
+      <section className="p-5">
+        <Hydrate state={dehydrateState}>
+          <section className="flex mb-3">
+            <MonthSelector year={year} month={month} />
+          </section>
+          <section className="flex">
+            <TotalInformation />
+          </section>
+          <section className="flex">
+            <ItemList year={year} month={month} />
+          </section>
+        </Hydrate>
+      </section>
+      <Bottoms />
     </>
   );
 }
