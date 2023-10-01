@@ -4,5 +4,6 @@
 
 ## 구성
 
-- Next.js 13
-- 데이터베이스 용도로 [Notion API](https://developers.notion.com/) 사용 (Notion Javascript SDK)
+- Next.js 13 (App router)
+- Tailwind CSS
+- 데이터베이스는 [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres) 사용
