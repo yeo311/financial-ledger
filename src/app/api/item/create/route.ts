@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { title, amount, category, day, isIncome } = await request.json();
-    await insertItems(title, amount, day, category, isIncome);
+    const { title, amount, category, day, isincome } = await request.json();
+    await insertItems(title, amount, day, category, isincome);
 
     return NextResponse.json({ success: true });
   } catch (err) {

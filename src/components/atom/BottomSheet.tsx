@@ -1,7 +1,7 @@
 'use client';
 
 import { PropsWithChildren, useRef, useState } from 'react';
-import Dim from '../Dim';
+import Dim from './Dim';
 
 interface Props extends PropsWithChildren {
   isOpen?: boolean;

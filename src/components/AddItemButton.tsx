@@ -1,14 +1,17 @@
-import { MouseEventHandler } from 'react';
+'use client';
+
 import FloatingButton from './atom/FloatingButton';
 import { LuPlus } from 'react-icons/lu';
+import { useRouter } from 'next/navigation';
 
-interface Props {
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+export default function AddItemButton() {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/create');
+  };
 
-export default function AddItemButton({ onClick }: Props) {
   return (
-    <FloatingButton onClick={onClick}>
+    <FloatingButton onClick={handleClick}>
       <LuPlus className="text-2xl text-white" />
     </FloatingButton>
   );

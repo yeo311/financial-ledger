@@ -1,10 +1,10 @@
-import ItemList from '@/components/ItemList';
 import MonthSelector from '@/components/MonthSelector';
 import TotalInformation from '@/components/TotalInformation';
-import { getItems } from '@/libs/postgres';
+import { getCategories, getItemsByDay, getTotal } from '@/libs/postgres';
 import getQueryClient from '@/libs/query/getQueryClient';
 import { Hydrate, dehydrate } from '@tanstack/react-query';
-import Bottoms from '@/components/Bottoms';
+import ItemList from '@/components/item-list';
+import AddItemButton from '@/components/AddItemButton';
 
 interface Props {
   params: {
@@ -13,11 +13,17 @@ interface Props {
   };
 }
 
+export const revalidate = 0;
+
 export default async function ListPage({ params: { year, month } }: Props) {
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery(['items', year, month], async () =>
-    getItems(year, month),
+    getItemsByDay(year, month),
   );
+  await queryClient.prefetchQuery(['total', year, month], async () =>
+    getTotal(year, month),
+  );
+  await queryClient.prefetchQuery(['category'], getCategories);
   const dehydrateState = dehydrate(queryClient);
 
   return (
@@ -35,7 +41,7 @@ export default async function ListPage({ params: { year, month } }: Props) {
           </section>
         </Hydrate>
       </section>
-      <Bottoms />
+      <AddItemButton />
     </>
   );
 }

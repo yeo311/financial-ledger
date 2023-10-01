@@ -1,4 +1,4 @@
-import { getItemsByDay } from '@/libs/postgres';
+import { getTotal } from '@/libs/postgres';
 import { type NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   if (!year || !month) return new Response(null, { status: 400 });
 
   try {
-    const data = await getItemsByDay(year, month);
+    const data = await getTotal(year, month);
     return NextResponse.json({ data });
   } catch (err) {
     return new Response(null, { status: 500 });
