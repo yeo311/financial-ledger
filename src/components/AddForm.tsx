@@ -1,11 +1,18 @@
 'use client';
 
 import client from '@/libs/axios/client';
-import type { Category, Item } from '@/libs/postgres';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
+import AmountForm from './form/AmountForm';
+import FormContainer from './form/FormContainer';
+import FormRow from './form/FormRow';
+import FormLabel from './form/FormLabel';
+import InputRadios, { RadioItem } from './form/InputRadios';
+import InputText from './form/InputText';
+import InputDate from './form/InputDate';
+import CategorySelect from './form/CategorySelect';
 
 const ItemParams = z.object({
   title: z.string().min(1),
@@ -17,14 +24,29 @@ const ItemParams = z.object({
 
 type ItemParams = z.infer<typeof ItemParams>;
 
+const ISINCOME_ITEMS: RadioItem[] = [
+  {
+    id: 'income',
+    name: '수입',
+    value: 'true',
+    groupName: 'isincome',
+  },
+  {
+    id: 'expenditure',
+    name: '지출',
+    value: 'false',
+    groupName: 'isincome',
+  },
+];
+
 export default function AddForm() {
   const router = useRouter();
-  const { data: categoryData } = useQuery({
-    queryKey: ['category'],
-    queryFn: async () => {
-      const { data } = await client.get<{ data: Category[] }>('/api/category');
-      return data.data;
-    },
+  const [itemParams, setItemParams] = useState<ItemParams>({
+    title: '',
+    amount: 0,
+    isincome: false,
+    category: 1,
+    day: '',
   });
 
   const queryClient = useQueryClient();
@@ -46,102 +68,73 @@ export default function AddForm() {
     },
   });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { title, amount, isincome, category, day } =
-      e.target as typeof e.target & Record<keyof Item, { value: string }>;
-
-    const params = {
-      title: title.value,
-      amount: Number(amount.value),
-      isincome: isincome.value === 'true',
-      category: Number(category.value),
-      day: day.value,
-    };
-
+  const handleSubmit = () => {
     try {
-      ItemParams.parse(params);
-      mutation.mutate(params);
+      ItemParams.parse(itemParams);
+      mutation.mutate(itemParams);
     } catch (err) {
       console.error(err);
       window.alert('모든 항목을 입력해주세요');
     }
   };
 
+  const validate = ItemParams.safeParse(itemParams);
+
   return (
-    <form className="flex flex-col text-lg" onSubmit={handleSubmit}>
-      <div className="flex justify-between text-2xl mb-4">
-        <label htmlFor="amount">금액</label>
-        <input
-          className="focus:outline-none flex-auto text-right px-1"
-          type="number"
-          name="amount"
-          id="amount"
-          placeholder="0"
-        />{' '}
-        원
-      </div>
-      <div className="flex justify-between mb-2">
-        <label htmlFor="isincome">분류</label>
-        <span className="flex gap-x-1">
-          <input
-            className="hidden peer/income"
-            type="radio"
-            id="income"
-            name="isincome"
-            value="true"
+    <>
+      <AmountForm
+        value={itemParams.amount}
+        onChange={(v) => setItemParams((prev) => ({ ...prev, amount: v }))}
+      />
+      <FormContainer>
+        <FormRow>
+          <FormLabel name="분류" />
+          <InputRadios
+            curValue={String(itemParams.isincome)}
+            onChange={(v) =>
+              setItemParams((prev) => ({ ...prev, isincome: v === 'true' }))
+            }
+            items={ISINCOME_ITEMS}
           />
-          <label
-            className="cursor-pointer flex justify-center items-center peer-checked/income:bg-slate-100 peer-checked/income:text-blue-500"
-            htmlFor="income"
-          >
-            수입
-          </label>
-          <input
-            className="hidden peer/expenditure"
-            type="radio"
-            id="expenditure"
-            name="isincome"
-            value="false"
-            defaultChecked
+        </FormRow>
+
+        <FormRow>
+          <FormLabel name="카테고리" />
+          <CategorySelect
+            curValue={itemParams.category}
+            onChange={(v) =>
+              setItemParams((prev) => ({ ...prev, category: Number(v) }))
+            }
           />
-          <label
-            className="cursor-pointer flex justify-center items-center peer-checked/expenditure:bg-slate-100 peer-checked/expenditure:text-blue-500"
-            htmlFor="expenditure"
-          >
-            지출
-          </label>
-        </span>
+        </FormRow>
+
+        <FormRow>
+          <FormLabel name="제목" />
+          <InputText
+            value={itemParams.title}
+            onChange={(v) => setItemParams((prev) => ({ ...prev, title: v }))}
+            placeholder="수입/지출 내용을 입력하세요"
+          />
+        </FormRow>
+
+        <FormRow>
+          <FormLabel name="날짜" />
+          <InputDate
+            value={itemParams.day}
+            onChange={(v) => setItemParams((prev) => ({ ...prev, day: v }))}
+          />
+        </FormRow>
+      </FormContainer>
+      <div className="h-16 fixed bottom-0 left-0 right-0 p-2">
+        <button
+          type="button"
+          className="bg-green-500 text-black p-3 rounded h-full w-full active:bg-green-600 disabled:text-white disabled:bg-gray-300"
+          disabled={!validate.success}
+          onClick={handleSubmit}
+        >
+          저장
+        </button>
       </div>
-      <div className="flex justify-between mb-2">
-        <label htmlFor="category">카테고리</label>
-        <select name="category" id="category" className="focus:outline-none">
-          {categoryData?.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex justify-between mb-2">
-        <label htmlFor="title">제목</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          className="focus:outline-none flex-auto text-right"
-        />
-      </div>
-      <div className="flex justify-between mb-2">
-        <label htmlFor="day">날짜</label>
-        <input type="date" name="day" id="day" className="focus:outline-none" />
-      </div>
-      <button
-        type="submit"
-        className="bg-gray-300 p-3 rounded active:bg-gray-400"
-      >
-        저장
-      </button>
-    </form>
+    </>
   );
 }
