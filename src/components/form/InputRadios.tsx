@@ -32,7 +32,7 @@ export default function InputRadios({ curValue, onChange, items }: Props) {
             onChange={handleChange}
           />
           <label
-            className="cursor-pointer flex justify-center items-center border px-2 py-1 rounded-sm text-lim"
+            className="cursor-pointer flex justify-center items-center border px-2 py-1 rounded-sm text-lim transition-all"
             style={
               value === curValue
                 ? {

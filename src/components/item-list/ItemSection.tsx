@@ -28,9 +28,11 @@ export default function ItemSection({ list }: Props) {
           </span>
         </div>
       </div>
-      {list.list.map((item) => (
-        <ItemRow key={item.id} item={item} />
-      ))}
+      <ul className="overflow-x-hidden">
+        {list.list.map((item) => (
+          <ItemRow key={item.id} item={item} />
+        ))}
+      </ul>
     </section>
   );
 }
