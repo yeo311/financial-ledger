@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Financial Ledger',
   description: 'Financial Ledger',
-  manifest: '/manifest.json',
   icons: [
     {
       rel: 'icon',
