@@ -14,7 +14,7 @@ export default function MonthSelector({ year, month }: Props) {
   const router = useRouter();
 
   const navigateMonth = (add: number) => {
-    const date = new Date(`${year}-${month}`);
+    const date = new Date(Number(year), Number(month) - 1);
     const newDate = addMonth(date, add);
     router.push(`/${newDate.getFullYear()}/${newDate.getMonth() + 1}`);
   };
