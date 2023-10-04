@@ -19,10 +19,15 @@ const config: Config = {
           '99%': { 'height': '100%', 'z-index': '40' },
           '100%': { 'opacity': '0', 'height': '0', 'z-index': '-10' },
         },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(720deg)' },
+        },
       },
       animation: {
         fadeout: 'fadeout 0.3s cubic-bezier(0.3, 0, 0.7, 0.4) both',
         fadein: 'fadein 0.4s cubic-bezier(0.33, 0.45, 0, 1) both',
+        spin: 'spin 2s infinite',
       },
     },
   },

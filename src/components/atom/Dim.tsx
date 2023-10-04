@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
   isShow: boolean;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: () => void;
 }
 
 export default function Dim({ isShow, onClick }: Props) {
