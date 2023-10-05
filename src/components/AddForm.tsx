@@ -41,12 +41,15 @@ const ISINCOME_ITEMS: RadioItem[] = [
 
 export default function AddForm() {
   const router = useRouter();
+  const today = new Date();
   const [itemParams, setItemParams] = useState<ItemParams>({
     title: '',
     amount: 0,
     isincome: false,
     category: 1,
-    day: '',
+    day: `${today.getFullYear()}-${today.getMonth() + 1}-${
+      today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
+    }`,
   });
 
   const queryClient = useQueryClient();
@@ -125,7 +128,10 @@ export default function AddForm() {
           />
         </FormRow>
       </FormContainer>
-      <div className="h-16 fixed bottom-0 left-0 right-0 p-2">
+      <div
+        className="h-16 fixed left-0 right-0 p-2"
+        style={{ bottom: 'env(safe-area-inset-bottom, 0px)' }}
+      >
         <button
           type="button"
           className="bg-green-500 text-black p-3 rounded h-full w-full active:bg-green-600 disabled:text-white disabled:bg-gray-300"

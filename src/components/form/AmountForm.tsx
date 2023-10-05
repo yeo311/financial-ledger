@@ -11,7 +11,7 @@ export default function AmountForm({ value, onChange }: Props) {
   };
 
   return (
-    <div className="flex text-2xl mb-4">
+    <div className="flex text-2xl mb-4 justify-end">
       <input
         className="focus:outline-none border-b border-white focus:border-lime-500 flex-auto text-right px-1"
         type="number"
