@@ -38,7 +38,6 @@ function LoadingItemList() {
 export default function Loading() {
   return (
     <div>
-      <Skeleton height={36} width={92} style={{ marginBottom: '12px' }} />
       <Skeleton height={28} width={150} />
       <Skeleton height={28} width={150} />
       <LoadingItemList />

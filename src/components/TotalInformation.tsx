@@ -3,7 +3,9 @@
 import client from '@/libs/axios/client';
 import { Total } from '@/libs/postgres';
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { LuPlus } from 'react-icons/lu';
 
 interface InformationProps {
   title: string;
@@ -39,13 +41,24 @@ export default function TotalInformation() {
   });
 
   return (
-    <div>
-      <Information title="지출" amount={data?.total_expense} />
-      <Information
-        title="수입"
-        amount={data?.total_income}
-        color="text-lime-600"
-      />
-    </div>
+    <section className="flex justify-between items-center">
+      <div>
+        <Information title="지출" amount={data?.total_expense} />
+        <Information
+          title="수입"
+          amount={data?.total_income}
+          color="text-lime-600"
+        />
+      </div>
+      <div>
+        <Link
+          href="/create"
+          className="flex justify-center items-center p-2 bg-lime-300 active:shadow-lg rounded-sm"
+        >
+          <LuPlus className="text-sm" />
+          추가
+        </Link>
+      </div>
+    </section>
   );
 }

@@ -128,13 +128,10 @@ export default function AddForm() {
           />
         </FormRow>
       </FormContainer>
-      <div
-        className="h-16 fixed left-0 right-0 p-2"
-        style={{ bottom: 'env(safe-area-inset-bottom, 0px)' }}
-      >
+      <div className="h-16 py-2">
         <button
           type="button"
-          className="bg-green-500 text-black p-3 rounded h-full w-full active:bg-green-600 disabled:text-white disabled:bg-gray-300"
+          className="bg-green-500 text-black py-3 rounded h-full w-full active:bg-green-600 disabled:text-white disabled:bg-gray-300"
           disabled={!validate.success}
           onClick={handleSubmit}
         >

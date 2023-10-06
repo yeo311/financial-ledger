@@ -12,7 +12,7 @@ interface Props {
   };
 }
 
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function ListPage({ params: { year, month } }: Props) {
   const queryClient = getQueryClient();
@@ -27,12 +27,7 @@ export default async function ListPage({ params: { year, month } }: Props) {
 
   return (
     <Hydrate state={dehydrateState}>
-      <section className="flex mb-3">
-        <MonthSelector year={year} month={month} />
-      </section>
-      <section className="flex">
-        <TotalInformation />
-      </section>
+      <TotalInformation />
       <section className="flex">
         <ItemList year={year} month={month} />
       </section>

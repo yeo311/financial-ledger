@@ -1,12 +1,21 @@
-import AddItemButton from '@/components/AddItemButton';
+import MonthSelector from '@/components/MonthSelector';
 import Container from '@/components/atom/Container';
-import { PropsWithChildren } from 'react';
 
-export default function ListPageLayout({ children }: PropsWithChildren) {
+export default function ListPageLayout({
+  children,
+  params: { year, month },
+}: {
+  children: React.ReactNode;
+  params: { year: string; month: string };
+}) {
   return (
     <>
-      <Container>{children}</Container>
-      <AddItemButton />
+      <Container>
+        <section className="flex mb-3">
+          <MonthSelector year={year} month={month} />
+        </section>
+        {children}
+      </Container>
     </>
   );
 }
