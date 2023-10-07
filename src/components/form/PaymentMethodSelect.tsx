@@ -15,7 +15,8 @@ export default function PaymentMethodSelect({ curValue, onChange }: Props) {
       const { data } = await client.get<{ data: PaymentMethod[] }>(
         '/api/payment-method',
       );
-      return data.data;
+
+      return data.data || [];
     },
   });
 
