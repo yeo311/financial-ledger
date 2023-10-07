@@ -20,12 +20,10 @@ export default function PaymentMethodSelect({ curValue, onChange }: Props) {
     },
   });
 
-  const paymentSelectData = data ? [{ id: 0, name: '선택안함' }, ...data] : [];
-
   return (
     <InputSelect
       curValue={curValue}
-      options={paymentSelectData.map(({ id, name }) => ({ value: id, name }))}
+      options={data?.map(({ id, name }) => ({ value: id, name })) || []}
       onChange={onChange}
     />
   );
