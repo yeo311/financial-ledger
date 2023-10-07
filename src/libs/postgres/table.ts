@@ -34,7 +34,7 @@ export async function checkTable() {
     const result =
       await sql`SELECT COUNT(*) FROM pg_class WHERE relname = 'items';`;
 
-    return result.rows.length && result.rows[0].count > 0;
+    return result.rows.at(0)?.count > 0 || false;
   } catch (e) {
     throw e;
   }

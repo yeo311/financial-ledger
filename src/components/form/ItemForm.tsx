@@ -10,6 +10,7 @@ import InputRadios, { RadioItem } from './InputRadios';
 import InputText from './InputText';
 import InputDate from './InputDate';
 import CategorySelect from './CategorySelect';
+import PaymentMethodSelect from './PaymentMethodSelect';
 
 const ItemParams = z.object({
   title: z.string().min(1),
@@ -17,6 +18,7 @@ const ItemParams = z.object({
   isincome: z.boolean(),
   category: z.number().min(1),
   day: z.string().min(1),
+  payment_method_id: z.number().min(1).nullable(),
 });
 
 export type ItemParams = z.infer<typeof ItemParams>;
@@ -95,6 +97,19 @@ export default function ItemForm({
             value={itemParams.title}
             onChange={(v) => setItemParams((prev) => ({ ...prev, title: v }))}
             placeholder="수입/지출 내용을 입력하세요"
+          />
+        </FormRow>
+
+        <FormRow>
+          <FormLabel name="결제 수단" />
+          <PaymentMethodSelect
+            curValue={itemParams.payment_method_id || undefined}
+            onChange={(v) =>
+              setItemParams((prev) => ({
+                ...prev,
+                payment_method_id: Number(v) === 0 ? null : Number(v),
+              }))
+            }
           />
         </FormRow>
 

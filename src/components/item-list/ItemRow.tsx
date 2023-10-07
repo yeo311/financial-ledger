@@ -79,7 +79,12 @@ export default function ItemRow({ item }: Props) {
       <Avatar bgColor=""></Avatar>
       <div className="flex flex-col">
         <h3>{item.title}</h3>
-        <span className="text-xs text-gray-600">{item.category_name}</span>
+        <span className="flex text-xs text-gray-600 divide-x divide-gray-300">
+          <span>{item.category_name}</span>
+          {item.payment_method_name && (
+            <span className="ml-1 pl-1">{item.payment_method_name}</span>
+          )}
+        </span>
       </div>
       <div className="flex-auto flex justify-end">
         <p>

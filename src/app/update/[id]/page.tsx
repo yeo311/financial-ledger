@@ -1,4 +1,4 @@
-import UpdateForm from '@/components/UpdateForm';
+import UpdateForm from '@/components/form/UpdateForm';
 
 interface Props {
   params: {

@@ -30,8 +30,17 @@ export async function PUT(
   { params }: { params: { slug: string } },
 ) {
   try {
-    const { title, amount, category, day, isincome } = await request.json();
-    await updateItem(params.slug, title, amount, day, category, isincome);
+    const { title, amount, category, day, isincome, payment_method_id } =
+      await request.json();
+    await updateItem(
+      params.slug,
+      title,
+      amount,
+      day,
+      category,
+      isincome,
+      payment_method_id,
+    );
     return new Response(null, { status: 200 });
   } catch {
     return new Response(null, { status: 500 });

@@ -3,7 +3,7 @@
 import client from '@/libs/axios/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import ItemForm, { type ItemParams } from './form/ItemForm';
+import ItemForm, { type ItemParams } from './ItemForm';
 import { formatNumber } from '@/utils/date';
 
 export default function AddForm() {
@@ -14,6 +14,7 @@ export default function AddForm() {
     amount: 0,
     isincome: false,
     category: 1,
+    payment_method_id: null,
     day: `${today.getFullYear()}-${today.getMonth() + 1}-${
       today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
     }`,

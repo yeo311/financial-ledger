@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import FormContainer from './form/FormContainer';
-import FormLabel from './form/FormLabel';
-import FormRow from './form/FormRow';
-import InputText from './form/InputText';
+import FormContainer from './FormContainer';
+import FormLabel from './FormLabel';
+import FormRow from './FormRow';
+import InputText from './InputText';
 import { setCookie } from '@/utils/cookie';
 import { useRouter } from 'next/navigation';
 

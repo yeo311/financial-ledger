@@ -3,7 +3,7 @@
 import client from '@/libs/axios/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import ItemForm, { type ItemParams } from './form/ItemForm';
+import ItemForm, { type ItemParams } from './ItemForm';
 import { Item } from '@/libs/postgres';
 import { formatNumber } from '@/utils/date';
 
@@ -61,6 +61,7 @@ export default function UpdateForm({ id }: Props) {
     amount: data.amount,
     isincome: data.isincome,
     category: data.category,
+    payment_method_id: data.payment_method_id,
     day,
   };
 

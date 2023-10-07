@@ -1,4 +1,4 @@
-import AccessKeyForm from '@/components/AccessKeyForm';
+import AccessKeyForm from '@/components/form/AccessKeyForm';
 
 export default function AccessPage() {
   return (
