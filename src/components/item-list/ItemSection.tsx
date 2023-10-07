@@ -15,10 +15,12 @@ export default function ItemSection({ list }: Props) {
     { income: 0, expendure: 0 },
   );
 
+  const date = new Date(list.date);
+
   return (
     <section>
       <div className="flex border-b justify-between py-1 my-2 text-sm">
-        <h3 className="text-gray-600">{Number(list.date)}일</h3>
+        <h3 className="text-gray-600">{date.getDate()}일</h3>
         <div className="flex gap-2">
           <span className="text-lime-600">
             +{dayTotal.income.toLocaleString()}원
