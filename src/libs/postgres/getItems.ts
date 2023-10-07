@@ -77,3 +77,17 @@ export async function getTotal(year: string | number, month: string | number) {
     throw e;
   }
 }
+
+export async function getItemById(id: string | number) {
+  try {
+    const { rows } =
+      await sql<Item>`SELECT items.*, TO_CHAR(items.day, 'DD') AS formatted_day, categories.name AS category_name
+    FROM items
+    JOIN categories ON items.category = categories.id
+    WHERE items.id = ${id}`;
+    if (!rows.length) throw new Error('no items');
+    return rows[0];
+  } catch (e) {
+    throw e;
+  }
+}

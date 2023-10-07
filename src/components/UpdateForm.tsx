@@ -1,28 +1,27 @@
 'use client';
 
 import client from '@/libs/axios/client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import ItemForm, { type ItemParams } from './form/ItemForm';
+import { Item } from '@/libs/postgres';
 import { formatNumber } from '@/utils/date';
 
-export default function AddForm() {
-  const router = useRouter();
-  const today = new Date();
-  const initialValue = {
-    title: '',
-    amount: 0,
-    isincome: false,
-    category: 1,
-    day: `${today.getFullYear()}-${today.getMonth() + 1}-${
-      today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
-    }`,
-  };
+type ItemResponse = Item & {
+  day: Date | string;
+};
 
+interface Props {
+  id: string;
+}
+
+export default function UpdateForm({ id }: Props) {
+  const router = useRouter();
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (params: ItemParams) => {
-      return client.post('/api/item/create', params);
+      return client.put(`/api/item/${id}`, params);
     },
     onSuccess: (_, value) => {
       const date = new Date(value.day);
@@ -34,9 +33,36 @@ export default function AddForm() {
       queryClient.invalidateQueries({
         queryKey: ['total', year, month],
       });
+      queryClient.invalidateQueries({ queryKey: ['itemById', id] });
       router.push(`/${year}/${month}`);
     },
   });
+
+  const { data } = useQuery({
+    queryKey: ['itemById', id],
+    queryFn: async () => {
+      const { data } = await client.get<{ data: ItemResponse }>(
+        `/api/item/${id}`,
+      );
+      return data.data;
+    },
+  });
+
+  if (!data) return null;
+
+  const date = typeof data.day === 'string' ? new Date(data.day) : data.day;
+
+  const day = `${date.getFullYear()}-${formatNumber(
+    date.getMonth() + 1,
+  )}-${formatNumber(date.getDate())}`;
+
+  const initialValue = {
+    title: data.title,
+    amount: data.amount,
+    isincome: data.isincome,
+    category: data.category,
+    day,
+  };
 
   const onSubmit = (itemParams: ItemParams) => {
     try {
@@ -49,7 +75,7 @@ export default function AddForm() {
 
   return (
     <ItemForm
-      submitButtonText="저장"
+      submitButtonText="수정"
       onSubmit={onSubmit}
       initialValue={initialValue}
     />

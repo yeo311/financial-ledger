@@ -1,4 +1,17 @@
-import { deleteItem } from '@/libs/postgres';
+import { deleteItem, getItemById, updateItem } from '@/libs/postgres';
+import { NextResponse } from 'next/server';
+
+export async function GET(
+  _: Request,
+  { params: { slug } }: { params: { slug: string } },
+) {
+  try {
+    const data = await getItemById(slug);
+    return NextResponse.json({ data });
+  } catch (e) {
+    return new Response(null, { status: 500 });
+  }
+}
 
 export async function DELETE(
   _: Request,
@@ -13,10 +26,12 @@ export async function DELETE(
 }
 
 export async function PUT(
-  _: Request,
+  request: Request,
   { params }: { params: { slug: string } },
 ) {
   try {
+    const { title, amount, category, day, isincome } = await request.json();
+    await updateItem(params.slug, title, amount, day, category, isincome);
     return new Response(null, { status: 200 });
   } catch {
     return new Response(null, { status: 500 });

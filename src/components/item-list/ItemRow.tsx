@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import client from '@/libs/axios/client';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 interface Props {
   item: Item;
@@ -67,10 +68,10 @@ export default function ItemRow({ item }: Props) {
         'gap-1.5',
         'transition-transform',
         {
-          'translate-x-[-4.25rem]': isShowDeleteButton,
+          'translate-x-[-7.5rem]': isShowDeleteButton,
         },
       )}
-      style={{ width: 'calc(100% + 4.25rem)' }}
+      style={{ width: 'calc(100% + 7.5rem)' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onClick={handleClick}
@@ -87,6 +88,14 @@ export default function ItemRow({ item }: Props) {
         </p>
       </div>
       <div className="self-stretch basis-12 ml-5">
+        <Link
+          href={`/update/${item.id}`}
+          className="bg-blue-600 h-full w-full text-white flex justify-center items-center"
+        >
+          수정
+        </Link>
+      </div>
+      <div className="self-stretch basis-12 ml-1">
         <button
           type="button"
           className="bg-red-600 h-full w-full text-white"

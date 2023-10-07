@@ -6,8 +6,8 @@ import type { ItemsByDate } from '@/libs/postgres';
 import ItemSection from './ItemSection';
 
 interface Props {
-  year: string | number;
-  month: string | number;
+  year: string;
+  month: string;
 }
 
 export default function ItemList({ year, month }: Props) {

@@ -3,3 +3,4 @@ export * from './table';
 export * from './insertItems';
 export * from './getCategories';
 export * from './deleteItem';
+export * from './updateItem';
