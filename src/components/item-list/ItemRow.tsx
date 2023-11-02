@@ -87,7 +87,7 @@ export default function ItemRow({ item }: Props) {
         </span>
       </div>
       <div className="flex-auto flex justify-end">
-        <p>
+        <p className={cn({ 'text-lime-600': item.isincome })}>
           {!item.isincome && '-'}
           {item.amount.toLocaleString()}원
         </p>

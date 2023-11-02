@@ -3,10 +3,10 @@ import InputSelect from './InputSelect';
 import client from '@/libs/axios/client';
 import { Category } from '@/libs/postgres';
 
-interface Props {
+type Props = {
   curValue?: string | number;
   onChange: (v: string | number) => void;
-}
+};
 
 export default function CategorySelect({ curValue, onChange }: Props) {
   const { data: categoryData } = useQuery({

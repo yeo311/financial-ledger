@@ -4,7 +4,6 @@ import client from '@/libs/axios/client';
 import { Total } from '@/libs/postgres';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { LuPlus } from 'react-icons/lu';
 
 interface InformationProps {
@@ -27,9 +26,12 @@ function Information({
   );
 }
 
-export default function TotalInformation() {
-  const { year, month } = useParams<{ year: string; month: string }>();
+type Props = {
+  year: string;
+  month: string;
+};
 
+export default function TotalInformation({ year, month }: Props) {
   const { data } = useQuery({
     queryKey: ['total', year, month],
     queryFn: async () => {

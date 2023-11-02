@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 export type Category = {
   id: number;
   name: string;
+  isincome: boolean;
 };
 
 export const getCategories = async () => {
@@ -15,9 +16,9 @@ export const getCategories = async () => {
   }
 };
 
-export const addCategory = async (name: string) => {
+export const addCategory = async (name: string, isincome: boolean) => {
   try {
-    await sql`INSERT INTO categories (name) VALUES (${name})`;
+    await sql`INSERT INTO categories (name, isincome) VALUES ('${name}', ${isincome})`;
   } catch (e) {
     throw e;
   }

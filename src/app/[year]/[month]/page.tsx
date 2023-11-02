@@ -11,7 +11,7 @@ interface Props {
 export default function ListPage({ params: { year, month } }: Props) {
   return (
     <>
-      <TotalInformation />
+      <TotalInformation year={year} month={month} />
       <section className="flex">
         <ItemList year={year} month={month} />
       </section>
