@@ -1,7 +1,8 @@
+import ContentsSection from '@/components/ContentsSection';
 import MonthSelector from '@/components/MonthSelector';
+import SelectMenuSection from '@/components/SelectMenuSection';
 import TotalInformation from '@/components/TotalInformation';
 import Container from '@/components/atom/Container';
-import ItemList from '@/components/item-list';
 
 export default async function Home() {
   const today = new Date();
@@ -14,9 +15,8 @@ export default async function Home() {
         <MonthSelector year={year} month={month} />
       </section>
       <TotalInformation year={year} month={month} />
-      <section className="flex">
-        <ItemList year={year} month={month} />
-      </section>
+      <SelectMenuSection />
+      <ContentsSection year={year} month={month} />
     </Container>
   );
 }

@@ -145,3 +145,46 @@ export async function deleteItem(id: string | number) {
     throw e;
   }
 }
+
+export type StatisticsByCategory = {
+  category_name: string;
+  total_amount: number;
+};
+
+export async function getStatisticsByCategory(year: string, month: string) {
+  try {
+    const { rows } =
+      await sql<StatisticsByCategory>`SELECT c.name AS category_name, SUM(i.amount) AS total_amount
+    FROM items i
+    INNER JOIN categories c ON i.category = c.id
+    WHERE EXTRACT(YEAR FROM i.day) = ${year} AND EXTRACT(MONTH FROM i.day) = ${month} AND i.isincome = false
+    GROUP BY c.name
+    ORDER BY total_amount DESC;`;
+    return rows;
+  } catch (e) {
+    throw e;
+  }
+}
+
+export type StatisticsByPaymentMethodRow = {
+  payment_method_name: string;
+  total_amount: number;
+};
+
+export async function getStatisticsByPaymentMethod(
+  year: string,
+  month: string,
+) {
+  try {
+    const { rows } =
+      await sql<StatisticsByPaymentMethodRow>`SELECT pm.name AS payment_method_name, SUM(i.amount) AS total_amount
+    FROM items i
+    INNER JOIN payment_method pm ON i.payment_method_id = pm.id
+    WHERE EXTRACT(YEAR FROM i.day) = ${year} AND EXTRACT(MONTH FROM i.day) = ${month} AND i.isincome = false
+    GROUP BY pm.name
+    ORDER BY total_amount DESC;`;
+    return rows;
+  } catch (e) {
+    throw e;
+  }
+}

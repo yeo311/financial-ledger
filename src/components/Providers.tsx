@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { PropsWithChildren } from 'react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Provider } from 'jotai';
 
 export default function Providers({ children }: PropsWithChildren) {
   const [queryClient] = React.useState(
@@ -20,7 +21,7 @@ export default function Providers({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <Provider>{children}</Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
