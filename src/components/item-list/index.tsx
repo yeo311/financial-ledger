@@ -19,6 +19,7 @@ export default function ItemList({ year, month }: Props) {
       );
       return data.data;
     },
+    suspense: true,
   });
 
   return (

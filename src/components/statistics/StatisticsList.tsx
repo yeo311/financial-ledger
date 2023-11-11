@@ -22,6 +22,7 @@ const StatisticsList = ({ year, month }: Props) => {
       );
       return data.data;
     },
+    suspense: true,
   });
 
   const { data: paymentMethodData } = useQuery({
@@ -32,6 +33,7 @@ const StatisticsList = ({ year, month }: Props) => {
       }>(`/api/statistics/payment-method?year=${year}&month=${month}`);
       return data.data;
     },
+    suspense: true,
   });
 
   console.log({ categoryData, paymentMethodData });

@@ -40,6 +40,7 @@ export default function TotalInformation({ year, month }: Props) {
       );
       return data.data;
     },
+    suspense: true,
   });
 
   return (

@@ -3,6 +3,8 @@ import MonthSelector from '@/components/MonthSelector';
 import SelectMenuSection from '@/components/SelectMenuSection';
 import TotalInformation from '@/components/TotalInformation';
 import Container from '@/components/atom/Container';
+import Spinner from '@/components/atom/Spinner';
+import { Suspense } from 'react';
 
 export default async function Home() {
   const today = new Date();
@@ -14,9 +16,11 @@ export default async function Home() {
       <section className="flex mb-3">
         <MonthSelector year={year} month={month} />
       </section>
-      <TotalInformation year={year} month={month} />
-      <SelectMenuSection />
-      <ContentsSection year={year} month={month} />
+      <Suspense fallback={<Spinner />}>
+        <TotalInformation year={year} month={month} />
+        <SelectMenuSection />
+        <ContentsSection year={year} month={month} />
+      </Suspense>
     </Container>
   );
 }
