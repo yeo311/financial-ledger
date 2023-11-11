@@ -15,3 +15,5 @@ export async function GET(request: NextRequest) {
     return new Response(null, { status: 500 });
   }
 }
+
+export const revalidate = 60;
