@@ -6,6 +6,8 @@ import Container from '@/components/atom/Container';
 import Spinner from '@/components/atom/Spinner';
 import { Suspense } from 'react';
 
+export const revalidate = 0;
+
 export default async function Home() {
   const today = new Date();
   const year = today.getFullYear().toString();

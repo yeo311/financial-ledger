@@ -9,6 +9,8 @@ interface Props {
   };
 }
 
+export const revalidate = 0;
+
 export default function ListPage({ params: { year, month } }: Props) {
   return (
     <>
