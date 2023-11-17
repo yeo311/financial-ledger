@@ -14,7 +14,7 @@ export default function AddForm() {
     amount: 0,
     isincome: false,
     category: 1,
-    payment_method_id: null,
+    payment_method_id: 1,
     day: `${today.getFullYear()}-${today.getMonth() + 1}-${
       today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
     }`,
