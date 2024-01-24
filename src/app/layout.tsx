@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Providers from '../components/Providers';
 import 'react-loading-skeleton/dist/skeleton.css';
+import GlobalAppbar from '@/components/appbar/GlobalAppbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -62,6 +63,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
+        <GlobalAppbar />
         <main>
           <Providers>{children}</Providers>
         </main>
