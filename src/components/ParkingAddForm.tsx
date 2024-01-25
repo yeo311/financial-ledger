@@ -37,7 +37,7 @@ const ParkingAddForm = () => {
       />
       <button
         onClick={handleAddParking}
-        className="border-2 border-gray-500 flex-auto h-10 active:bg-gray-700 active:border-gray-700"
+        className="border-2 border-gray-500 basis-1/4 h-10 active:bg-gray-700 active:border-gray-700"
       >
         추가
       </button>
